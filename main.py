@@ -32,7 +32,7 @@ player_speed = 15   # pixels to move
 # Movement of player
 
 
-def left_movement():
+def left_movement(event):
     x = player.xcor()
     x -= player_speed
     if x < -280:
@@ -40,7 +40,7 @@ def left_movement():
     player.setx(x)
 
 
-def right_movement():
+def right_movement(event):
     x = player.xcor()
     x += player_speed
     if x > 280:
@@ -49,7 +49,12 @@ def right_movement():
 
 
 # Keyboard bindings
-turtle.listen()
-turtle.onkey(left_movement, "Left")
-turtle.onkey(right_movement, "Right")
+# win.onkey(left_movement, "Left")
+# win.onkey(right_movement, "Right")
+# in order to keep turtle moving continuously without multiple presses
+turtle.getcanvas().bind('<Right>', right_movement)
+turtle.getcanvas().bind('<Left>', left_movement)
+
+
+win.listen()
 win.mainloop()
