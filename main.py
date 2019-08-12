@@ -28,4 +28,28 @@ player.speed(0)
 player.setposition(0, -250)
 player.setheading(90)
 
+player_speed = 15   # pixels to move
+# Movement of player
+
+
+def left_movement():
+    x = player.xcor()
+    x -= player_speed
+    if x < -280:
+        x = -280
+    player.setx(x)
+
+
+def right_movement():
+    x = player.xcor()
+    x += player_speed
+    if x > 280:
+        x = 280
+    player.setx(x)
+
+
+# Keyboard bindings
+turtle.listen()
+turtle.onkey(left_movement, "Left")
+turtle.onkey(right_movement, "Right")
 win.mainloop()
