@@ -29,6 +29,18 @@ player.setposition(0, -250)
 player.setheading(90)
 
 player_speed = 15   # pixels to move
+
+# Enemy creation
+
+invader = turtle.Turtle()
+invader.color("red")
+invader.shape("circle")
+invader.penup()
+invader.speed(0)
+invader.setposition(-200, 250)
+
+invader_speed = 2
+
 # Movement of player
 
 
@@ -55,6 +67,21 @@ def right_movement(event):
 turtle.getcanvas().bind('<Right>', right_movement)
 turtle.getcanvas().bind('<Left>', left_movement)
 
-
 win.listen()
+
+# Main loop
+
+while True:
+    inv_x = invader.xcor()
+    inv_x += invader_speed
+    invader.setx(inv_x)
+    if invader.xcor() > 280:
+        invader_speed *= -1
+        invader.sety(invader.ycor() - 40)
+
+    if invader.xcor() < -280:
+        invader_speed *= -1
+        invader.sety(invader.ycor() - 40)
+
+
 win.mainloop()
