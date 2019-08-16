@@ -141,5 +141,11 @@ while True:
         # reset the invader
         invader.setposition(-200, 250)
 
+    if is_collision(player, invader):
+        player.hideturtle()
+        invader.hideturtle()
+        print("Game Over")
+        break
+
 
 win.mainloop()
