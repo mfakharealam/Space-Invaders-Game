@@ -104,7 +104,7 @@ def gunfiring():
 
 def is_collision(turtle1, turtle2):
     distance = math.sqrt(math.pow(turtle1.xcor() - turtle2.xcor(), 2) + math.pow(turtle1.ycor() - turtle2.ycor(), 2))
-    if distance < 15:
+    if distance < 16:
         return True
     return False
 
@@ -125,13 +125,16 @@ while True:
         inv_x = invader.xcor()
         inv_x += invader_speed
         invader.setx(inv_x)
+        # moving invaders down and in reverse
         if invader.xcor() > 280:
+            for i in invaders_list:
+                i.sety(i.ycor() - 40)
             invader_speed *= -1
-            invader.sety(invader.ycor() - 40)
 
         if invader.xcor() < -280:
+            for i in invaders_list:
+                i.sety(i.ycor() - 40)
             invader_speed *= -1
-            invader.sety(invader.ycor() - 40)
 
         # check for collision between invader and gunfire
 
