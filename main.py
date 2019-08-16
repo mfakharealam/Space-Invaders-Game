@@ -1,6 +1,6 @@
 import turtle
-import os
 import math
+import random
 
 turtle.tracer(1)
 turtle.setundobuffer(1)
@@ -34,16 +34,26 @@ player.setheading(90)
 
 player_speed = 15   # pixels to move
 
-# Enemy creation
-
-invader = turtle.Turtle()
-invader.color("red")
-invader.shape("circle")
-invader.penup()
-invader.speed(0)
-invader.setposition(-200, 250)
-
 invader_speed = 2
+
+# creating multiple invaders
+
+no_of_invaders = 5
+
+invaders_list = []
+
+for i in range(no_of_invaders):
+    # Enemy creation
+    invaders_list.append(turtle.Turtle())
+
+for invader in invaders_list:
+    invader.color("red")
+    invader.shape("circle")
+    invader.penup()
+    invader.speed(0)
+    random_x = random.randint(-200, 200)
+    random_y = random.randint(100, 250)
+    invader.setposition(random_x, random_y)
 
 # Player's gunfire
 
@@ -111,16 +121,34 @@ win.listen()
 # Main loop
 
 while True:
-    inv_x = invader.xcor()
-    inv_x += invader_speed
-    invader.setx(inv_x)
-    if invader.xcor() > 280:
-        invader_speed *= -1
-        invader.sety(invader.ycor() - 40)
+    for invader in invaders_list:
+        inv_x = invader.xcor()
+        inv_x += invader_speed
+        invader.setx(inv_x)
+        if invader.xcor() > 280:
+            invader_speed *= -1
+            invader.sety(invader.ycor() - 40)
 
-    if invader.xcor() < -280:
-        invader_speed *= -1
-        invader.sety(invader.ycor() - 40)
+        if invader.xcor() < -280:
+            invader_speed *= -1
+            invader.sety(invader.ycor() - 40)
+
+        # check for collision between invader and gunfire
+
+        if is_collision(gunfire, invader):
+            gunfire.hideturtle()
+            gunfire_state = "ready"  # to fire it again
+            gunfire.setposition(0, -400)
+            # reset the invader
+            random_x = random.randint(-200, 200)
+            random_y = random.randint(100, 250)
+            invader.setposition(random_x, random_y)
+
+        if is_collision(player, invader):
+            player.hideturtle()
+            invader.hideturtle()
+            print("Game Over")
+            break
 
     # moving the gunfire
     if gunfire_state == "fire":
@@ -131,21 +159,6 @@ while True:
     if gunfire.ycor() > 275:
         gunfire_state = "ready"
         gunfire.hideturtle()
-
-    # check for collision between invader and gunfire
-
-    if is_collision(gunfire, invader):
-        gunfire.hideturtle()
-        gunfire_state = "ready"     # to fire it again
-        gunfire.setposition(0, -400)
-        # reset the invader
-        invader.setposition(-200, 250)
-
-    if is_collision(player, invader):
-        player.hideturtle()
-        invader.hideturtle()
-        print("Game Over")
-        break
 
 
 win.mainloop()
