@@ -1,5 +1,6 @@
 import turtle
 import os
+import math
 
 turtle.tracer(1)
 turtle.setundobuffer(1)
@@ -91,6 +92,13 @@ def gunfiring():
         gunfire.showturtle()
 
 
+def is_collision(turtle1, turtle2):
+    distance = math.sqrt(math.pow(turtle1.xcor() - turtle2.xcor(), 2) + math.pow(turtle1.ycor() - turtle2.ycor(), 2))
+    if distance < 15:
+        return True
+    return False
+
+
 # Keyboard bindings
 # win.onkey(left_movement, "Left")
 # win.onkey(right_movement, "Right")
@@ -123,5 +131,15 @@ while True:
     if gunfire.ycor() > 275:
         gunfire_state = "ready"
         gunfire.hideturtle()
+
+    # check for collision between invader and gunfire
+
+    if is_collision(gunfire, invader):
+        gunfire.hideturtle()
+        gunfire_state = "ready"     # to fire it again
+        gunfire.setposition(0, -400)
+        # reset the invader
+        invader.setposition(-200, 250)
+
 
 win.mainloop()
