@@ -23,6 +23,19 @@ for side in range(4):
     border_pen.left(90)
 border_pen.hideturtle()
 
+# Adding score
+
+score = 0
+
+score_pen = turtle.Turtle()
+score_pen.speed(0)
+score_pen.color("white")
+score_pen.penup()
+score_pen.setposition(-290, 280)
+score_str = "Score: %s" %score
+score_pen.write(score_str, False, align="left", font=("Arial", 14, "normal"))
+
+
 # Player turtle
 player = turtle.Turtle()
 player.color("blue")
