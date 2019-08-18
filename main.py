@@ -31,10 +31,10 @@ score_pen = turtle.Turtle()
 score_pen.speed(0)
 score_pen.color("white")
 score_pen.penup()
-score_pen.setposition(-290, 280)
-score_str = "Score: %s" %score
+score_pen.setposition(-290, 275)
+score_str = "Score: %s" % score
 score_pen.write(score_str, False, align="left", font=("Arial", 14, "normal"))
-
+score_pen.hideturtle()
 
 # Player turtle
 player = turtle.Turtle()
@@ -159,6 +159,11 @@ while True:
             random_x = random.randint(-200, 200)
             random_y = random.randint(100, 250)
             invader.setposition(random_x, random_y)
+            # score update
+            score += 10
+            score_str = "Score: %s" % score
+            score_pen.clear()
+            score_pen.write(score_str, False, align="left", font=("Arial", 14, "normal"))
 
         if is_collision(player, invader):
             player.hideturtle()
