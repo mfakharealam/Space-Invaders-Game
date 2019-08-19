@@ -1,5 +1,6 @@
 import turtle
 import math
+import winsound
 import random
 
 turtle.tracer(1)
@@ -115,6 +116,7 @@ def right_movement(event):
 def gunfiring():
     global gunfire_state    # any changes here are reflected everywhere to this var
     if gunfire_state == "ready":
+        winsound.PlaySound("laser.wav", winsound.SND_ASYNC)
         gunfire_state = "fire"
         x = player.xcor()
         y = player.ycor() + 10
@@ -159,6 +161,7 @@ while True:
         # check for collision between invader and gunfire
 
         if is_collision(gunfire, invader):
+            winsound.PlaySound("explosion.wav", winsound.SND_ASYNC)
             gunfire.hideturtle()
             gunfire_state = "ready"  # to fire it again
             gunfire.setposition(0, -400)
