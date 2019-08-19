@@ -8,7 +8,14 @@ turtle.setundobuffer(1)
 # Setting up screen
 win = turtle.Screen()
 win.bgcolor("black")
+win.setup(700, 700)
 win.title("Space Invaders")
+win.bgpic("space_invaders_background.gif")
+
+# for shapes
+
+turtle.register_shape("invader.gif")
+turtle.register_shape("player.gif")
 
 # Draw border
 border_pen = turtle.Turtle()
@@ -39,7 +46,7 @@ score_pen.hideturtle()
 # Player turtle
 player = turtle.Turtle()
 player.color("blue")
-player.shape("triangle")
+player.shape("player.gif")
 player.penup()
 player.speed(0)
 player.setposition(0, -250)
@@ -61,7 +68,7 @@ for i in range(no_of_invaders):
 
 for invader in invaders_list:
     invader.color("red")
-    invader.shape("circle")
+    invader.shape("invader.gif")
     invader.penup()
     invader.speed(0)
     random_x = random.randint(-200, 200)
